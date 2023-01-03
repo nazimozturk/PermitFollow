@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "departmentpersonels",
+  "info": {
+    "singularName": "departmentpersonel",
+    "pluralName": "departmentpersonels",
+    "displayName": "DepartmentPersonel",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "DepartmentPersonelsId": {
+      "type": "biginteger"
+    },
+    "PersonelId": {
+      "type": "biginteger"
+    },
+    "DepartmentId": {
+      "type": "biginteger"
+    },
+    "department_managers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::department-manager.department-manager",
+      "mappedBy": "department_personel"
+    }
+  }
+}

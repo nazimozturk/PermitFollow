@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "permits",
+  "info": {
+    "singularName": "permit",
+    "pluralName": "permits",
+    "displayName": "Permit",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "PermitId": {
+      "type": "biginteger"
+    },
+    "PersonelId": {
+      "type": "biginteger"
+    },
+    "CreatedDate": {
+      "type": "datetime"
+    },
+    "StartDate": {
+      "type": "datetime"
+    },
+    "EndDate": {
+      "type": "datetime"
+    },
+    "File": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Description": {
+      "type": "text"
+    },
+    "Status": {
+      "type": "integer"
+    },
+    "Type": {
+      "type": "integer"
+    },
+    "personel": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personel.personel",
+      "inversedBy": "permits"
+    },
+    "permit_statuses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::permit-status.permit-status",
+      "mappedBy": "permit"
+    }
+  }
+}

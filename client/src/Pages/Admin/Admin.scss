@@ -1,0 +1,137 @@
+.admin {
+  margin: 25px auto;
+  .top {
+    display: flex;
+    width: 80%;
+    height: 60px;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 25px auto;
+    .wrapper {
+      display: flex;
+
+      button {
+        width: 200px;
+        height: 50px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        background-color: #2879fe;
+        color: white;
+        font-weight: 500;
+        margin-left: 10px;
+        border-radius: 5px;
+
+        .badgeColor {
+          color: white;
+        }
+
+        .icon {
+          border-radius: 25%;
+        }
+
+        &:hover {
+          background-color: black;
+        }
+      }
+    }
+  }
+  .center,
+  .bottom {
+    width: 80%;
+    margin: 25px auto;
+    table {
+      width: 100%;
+      table-layout: fixed;
+      tr {
+        th {
+          background-color: black;
+          color: white;
+          height: 50px;
+          text-align: center;
+        }
+        th.header {
+          border-radius: 5px;
+          background-color: darkslategray;
+        }
+      }
+      .personelAdd {
+        background-color: transparent;
+        button {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          border: none;
+          background-color: #2879fe;
+          color: white;
+          font-weight: 500;
+          border-radius: 5px;
+          &:hover {
+            background-color: black;
+          }
+        }
+      }
+      tbody {
+        cursor: default;
+        text-align: center;
+        tr {
+          cursor: default;
+          height: 50px;
+          &:hover {
+            background-color: #21252918;
+            color: black;
+            font-weight: bold;
+            height: 50px;
+          }
+        }
+        .icon {
+          display: flex;
+          height: 50px;
+          justify-content: space-around;
+          align-items: center;
+
+          .icons {
+            cursor: pointer;
+            width: 50%;
+            height: 100%;
+          }
+
+          .green {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            font-weight: 500;
+            border-radius: 5px;
+            margin-right: 5px;
+          }
+          .red {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            background-color: #dc3545;
+            color: white;
+            font-weight: 500;
+            border-radius: 5px;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+}
