@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './PersonelList.scss';
-import axios from 'axios';
 import useFetch from '../../hooks/useFetch';
 
 const PersonelList = () => {
   const { data, loading, error } = useFetch(`/personels`);
 
-  console.log(data);
   return (
     <>
       <div className="personelList">

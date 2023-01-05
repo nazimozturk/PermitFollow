@@ -21,7 +21,7 @@ const config = {
     // 'sk',
     // 'sv',
     // 'th',
-    // 'tr',
+    'tr',
     // 'uk',
     // 'vi',
     // 'zh-Hans',

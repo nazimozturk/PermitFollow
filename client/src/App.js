@@ -12,15 +12,37 @@ import PersonelList from "./Pages/PersonelList/PersonelList";
 import Admin from "./Pages/Admin/Admin";
 import Login from "./Pages/Login/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import React, { useState } from "react";
+import Register from "./Pages/Register/Register";
+
 
 
 const Layout = ()=>{
+  const [isLogin,setIsLogin]=useState(true)
+
+  // const [user, setuser]=useState({name:"",email:""})
+  // const [eror, setError]=useState('')
+
+  // const Login = details =>{
+  //   console.log(details)
+  // }
+
+  // const Logout = ()=>{
+  //   console.log("Logout")
+  // }
+
   return(
   <div className="app">
+    {isLogin
+    ?
+    <Login/>     
+    :
+    <>
     <Navbar/>
     <Outlet/>
     <Footer/>
+    </>}
+    
   </div>)
 }
 
@@ -53,6 +75,10 @@ const router = createBrowserRouter([
       {
         path:"/Login",
         element:<Login/>
+      },
+      {
+        path:"/Register",
+        element:<Register/>
       },
     ]
   },

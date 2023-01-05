@@ -2,7 +2,7 @@ import React from 'react';
 import '../ModalPermitRequest/Modal.scss';
 
 const d = new Date();
-let text = d.toLocaleDateString();
+let date = d.toLocaleDateString();
 
 const ModalPermitRequest = () => {
   return (
@@ -30,16 +30,14 @@ const ModalPermitRequest = () => {
           <tr>
             <td className="right">İzin Talep tarihi</td>
             <td>
-              <span>{text}</span>
+              <span>{date}</span>
             </td>
           </tr>
           <tr>
             <td className="right">İzin Tipi</td>
             <td>
               <select className="select" id="format">
-                <option selected disabled>
-                  izin Tipini Seçiniz
-                </option>
+                <option disabled>izin Tipini Seçiniz</option>
                 <option value="1">Yıllık izni</option>
                 <option value="2">Mazeret izni</option>
                 <option value="3">Evlilik izni</option>

@@ -62,12 +62,14 @@
     width: 80%;
     table {
       table-layout: fixed;
-      th {
-        background-color: black;
-        color: white;
-        height: 50px;
-        width: 250px;
-        text-align: center;
+      thead {
+        th {
+          background-color: black;
+          color: white;
+          height: 50px;
+          width: 250px;
+          text-align: center;
+        }
       }
       tbody {
         cursor: default;

@@ -5,9 +5,6 @@ import ModalPermitRequest from '../../Components/Modal/ModalPermitRequest/ModalP
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const d = new Date();
-let text = d.toLocaleDateString();
-
 const Home = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -21,7 +18,7 @@ const Home = () => {
             <h1>Nazim OZTURK</h1>
           </div>
           <div className="right">
-            <h2>Tarih: {text}</h2>
+            <h2>Tarih: {new Date().toLocaleDateString()}</h2>
           </div>
         </div>
         <div className="center">
@@ -80,13 +77,7 @@ const Home = () => {
         </div>
       </div>
 
-      <Modal
-        show={show}
-        size="lg"
-        centered
-        onHide={handleClose}
-        animation={true}
-      >
+      <Modal show={show} size="lg" onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
           <Modal.Title>İzin Talep Formu</Modal.Title>
         </Modal.Header>
