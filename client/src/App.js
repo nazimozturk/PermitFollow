@@ -12,30 +12,20 @@ import PersonelList from "./Pages/PersonelList/PersonelList";
 import Admin from "./Pages/Admin/Admin";
 import Login from "./Pages/Login/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from "react";
-import Register from "./Pages/Register/Register";
+import React, { useState, useEffect } from "react";
 
 
 
 const Layout = ()=>{
-  const [isLogin,setIsLogin]=useState(true)
+  const [isLogin,setIsLogin]=useState(null)
+  
 
-  // const [user, setuser]=useState({name:"",email:""})
-  // const [eror, setError]=useState('')
-
-  // const Login = details =>{
-  //   console.log(details)
-  // }
-
-  // const Logout = ()=>{
-  //   console.log("Logout")
-  // }
 
   return(
   <div className="app">
     {isLogin
     ?
-    <Login/>     
+    <Login setIsLogin={setIsLogin}/>     
     :
     <>
     <Navbar/>
@@ -69,16 +59,16 @@ const router = createBrowserRouter([
         element:<PersonelList/>
       },
       {
+        path:"/PersonelList/:id",
+        element:<PersonelList/>
+      },
+      {
         path:"/Admin",
         element:<Admin/>
       },
       {
         path:"/Login",
         element:<Login/>
-      },
-      {
-        path:"/Register",
-        element:<Register/>
       },
     ]
   },

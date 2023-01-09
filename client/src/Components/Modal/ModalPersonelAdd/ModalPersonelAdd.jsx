@@ -1,7 +1,7 @@
 import React from 'react';
-import '../ModalPermitRequest/ModalPermitRequest.scss';
+import '../ModalPersonelAdd/ModalPersonelAdd.scss';
 
-const ModalPermitRequest = ({ userInfo }) => {
+const ModalPersonelAdd = () => {
   return (
     <>
       <table className="modalTable">
@@ -15,27 +15,19 @@ const ModalPermitRequest = ({ userInfo }) => {
           <tr>
             <td className="right">İsim Soyisim</td>
             <td>
-              <span>
-                {userInfo?.attributes?.FirstName +
-                  ' ' +
-                  userInfo?.attributes?.LastName}
-              </span>
+              <span>NAZIM ÖZTÜRK</span>
             </td>
           </tr>
           <tr>
             <td className="right">Departman</td>
             <td>
-              <span>
-                {userInfo?.attributes?.LastName +
-                  ' ' +
-                  userInfo?.attributes?.LastName}
-              </span>
+              <span>l1 destek</span>
             </td>
           </tr>
           <tr>
             <td className="right">İzin Talep tarihi</td>
             <td>
-              <span>{new Date().toLocaleDateString()}</span>
+              <span>{'date'}</span>
             </td>
           </tr>
           <tr>
@@ -81,4 +73,4 @@ const ModalPermitRequest = ({ userInfo }) => {
   );
 };
 
-export default ModalPermitRequest;
+export default ModalPersonelAdd;

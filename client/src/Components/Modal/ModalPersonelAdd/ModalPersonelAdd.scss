@@ -1,0 +1,105 @@
+.modalTable {
+  width: 100%;
+  thead {
+    tr {
+      th {
+        height: 50px;
+        width: 70%;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 0px 5px 5px 0px;
+      }
+      th.right {
+        width: 30%;
+        text-align: right;
+        border-radius: 5px 0px 0px 5px;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        text-align: center;
+        height: 50px;
+        border-bottom: 1px solid lightgray;
+
+        span {
+          text-transform: uppercase;
+          text-align: center;
+        }
+
+        select,
+        input.select {
+          text-align: center;
+          appearance: none;
+          border: 0 !important;
+          background: #d8d9da;
+          background-image: none;
+          flex: 1;
+          padding: 0 0.5em;
+          color: black;
+          cursor: pointer;
+          font-size: 1em;
+          text-transform: uppercase;
+        }
+        select::-ms-expand {
+          display: none;
+        }
+        .select {
+          width: 20em;
+          height: 3em;
+          line-height: 3;
+          background: #d8d9da;
+          overflow: hidden;
+          border-radius: 0.25em;
+        }
+
+        textarea {
+          width: 98%;
+          height: 150px;
+          padding: 6px 10px;
+          box-sizing: border-box;
+          border: 2px solid #ccc;
+          border-radius: 4px;
+          background-color: #f8f8f8;
+          font-size: 16px;
+          resize: none;
+        }
+
+        input.dosya {
+          width: 75%;
+          align-items: center;
+          background: #d8d9da;
+          border: 0;
+          border-radius: 5px 0px 0px 5px;
+          padding: 8px 25px;
+          cursor: pointer;
+          color: #fff;
+          text-transform: uppercase;
+        }
+      }
+
+      td.right {
+        text-align: right;
+      }
+
+      td.fileUpload {
+        display: flex;
+        button {
+          width: 25%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          border: none;
+          border-radius: 0px 5px 5px 0px;
+          background-color: #2879fe;
+          color: white;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

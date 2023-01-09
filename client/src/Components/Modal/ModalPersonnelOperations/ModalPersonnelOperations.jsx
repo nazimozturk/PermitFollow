@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const ModalPersonnelOperations = () => {
-  return <div>ModalPersonnelOperations</div>;
+const ModalPersonnelOperations = ({ userInfo }) => {
+  console.log(userInfo);
+
+  return (
+    <>
+      <div className="name">{userInfo?.attributes?.FirstName}</div>
+    </>
+  );
 };
 
 export default ModalPersonnelOperations;
