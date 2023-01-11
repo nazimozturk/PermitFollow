@@ -33,12 +33,6 @@
     "ActiveStatus": {
       "type": "integer"
     },
-    "department_managers": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::department-manager.department-manager",
-      "mappedBy": "personel"
-    },
     "permits": {
       "type": "relation",
       "relation": "oneToMany",
@@ -50,6 +44,12 @@
       "relation": "oneToMany",
       "target": "api::permit-status.permit-status",
       "mappedBy": "personel"
+    },
+    "department_manager": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::department-manager.department-manager",
+      "inversedBy": "personels"
     }
   }
 }

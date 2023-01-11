@@ -10,7 +10,8 @@ import useFetch from '../../hooks/useFetch';
 const Home = () => {
   const id = useParams().id;
 
-  const { data, loading, error } = useFetch(`/personels/1`);
+  const { data, loading, error } = useFetch(`/personels/1?populate=*&`);
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -87,7 +88,13 @@ const Home = () => {
                 <tbody>
                   <tr>
                     <td>Nazım ÖZTÜRK</td>
-                    <td>Yazılım / L1</td>
+                    <td>
+                      aaa
+                      {/* {
+                        data.attributes.department_manager.data?.attributes
+                          .DepartmentId
+                      } */}
+                    </td>
                     <td>28-05-2022</td>
                     <td>Yıllık İzin</td>
                     <td>09-09-2022</td>

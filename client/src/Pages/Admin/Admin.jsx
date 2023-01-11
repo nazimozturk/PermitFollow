@@ -12,18 +12,29 @@ import EmailIcon from '@mui/icons-material/Email';
 import ModalPersonnelOperations from '../../Components/Modal/ModalPersonnelOperations/ModalPersonnelOperations';
 import ModalPersonelAdd from '../../Components/Modal/ModalPersonelAdd/ModalPersonelAdd';
 import useFetch from '../../hooks/useFetch';
-import { Link, useParams } from 'react-router-dom';
 
 const Admin = () => {
-  const userId = useParams().id;
-  const { data, loading, error } = useFetch(`/personels`);
+  const { data, loading, error } = useFetch(`/personels?populate=*&`);
+
+  // const { data2 } = useFetch(
+  //   `/personels?populate=*&[filters][departments][id]=${data.attributes.department_manager.data?.attributes.DepartmentId}
+  //   )}`
+  // );
+  // console.log(
+  //   data[1].attributes.department_manager.data.attributes.DepartmentId
+  // );
+
+  const [userInfo, setUserInfo] = useState({});
+  const userDetailModal = (item) => {
+    setUserInfo(item);
+    setLgShow(true);
+  };
+
   const [smShow, setSmShow] = useState(false);
   const [lgShow, setLgShow] = useState(false);
 
   const handleCloseSm = () => setSmShow(false);
   const handleCloseLg = () => setLgShow(false);
-
-  console.log(userId);
 
   const [isActive, setIsActive] = useState({
     id: '',
@@ -35,11 +46,6 @@ const Admin = () => {
     });
   };
 
-  const [userInfo, setUserInfo] = useState({});
-  const userDetailModal = (item) => {
-    setUserInfo(item);
-    setLgShow(true);
-  };
   return (
     <>
       {loading ? (
@@ -57,7 +63,7 @@ const Admin = () => {
                   }}
                 >
                   <PersonAddIcon className="icon" />
-                   Personel İşlemleri
+                  Personel İşlemleri
                 </button>
                 <button
                   className="permitCheck"
@@ -121,7 +127,12 @@ const Admin = () => {
                           ' ' +
                           item.attributes.LastName}
                       </td>
-                      <td>{item.id}</td>
+                      <td>
+                        {
+                          item.attributes.department_manager.data?.attributes
+                            .DepartmentId
+                        }
+                      </td>
                       <td>{item.attributes.Email}</td>
                       <td>{item.attributes.FirstName}</td>
                       <td>{item.attributes.TotalPermitCount}</td>
@@ -211,10 +222,10 @@ const Admin = () => {
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleCloseSm}>
-                Close
+                Kapat
               </Button>
               <Button variant="primary" onClick={handleCloseSm}>
-                Save Changes
+                Personel Ekle
               </Button>
             </Modal.Footer>
           </Modal>
@@ -235,10 +246,10 @@ const Admin = () => {
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleCloseLg}>
-                Close
+                Kapat
               </Button>
               <Button variant="primary" onClick={handleCloseLg}>
-                Save Changes
+                Değişikliği Kaydet
               </Button>
             </Modal.Footer>
           </Modal>

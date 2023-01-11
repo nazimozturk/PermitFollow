@@ -13,58 +13,43 @@ const ModalPersonelAdd = () => {
         </thead>
         <tbody>
           <tr>
-            <td className="right">İsim Soyisim</td>
+            <td className="right">İsim</td>
             <td>
-              <span>NAZIM ÖZTÜRK</span>
+              <input type="text" placeholder="İsim" name="" id="" />
+            </td>
+          </tr>
+          <tr>
+            <td className="right">Soyisim</td>
+            <td>
+              <input type="text" placeholder="Soyisim" name="" id="" />
+            </td>
+          </tr>
+          <tr>
+            <td className="right">Şifre</td>
+            <td>
+              <input type="password" placeholder="Şifre" name="" id="" />
+            </td>
+          </tr>
+          <tr>
+            <td className="right">Şifre Tekrar</td>
+            <td>
+              <input type="password" placeholder="Şifre Tekrar" name="" id="" />
             </td>
           </tr>
           <tr>
             <td className="right">Departman</td>
             <td>
-              <span>l1 destek</span>
-            </td>
-          </tr>
-          <tr>
-            <td className="right">İzin Talep tarihi</td>
-            <td>
-              <span>{'date'}</span>
-            </td>
-          </tr>
-          <tr>
-            <td className="right">İzin Tipi</td>
-            <td>
               <select className="select" id="format">
                 <option disabled>izin Tipini Seçiniz</option>
-                <option value="1">Yıllık izni</option>
-                <option value="2">Mazeret izni</option>
-                <option value="3">Evlilik izni</option>
-                <option value="4">Taşınma izni</option>
+                <option value="1">L1 / YAZILIM DESTEK UZMANI</option>
+                <option value="2">L2 / YAZILIM UZMANI</option>
               </select>
             </td>
           </tr>
           <tr>
-            <td className="right">İzne Çıkış</td>
+            <td className="right">İşe Giriş Tarihi</td>
             <td>
-              <input type="date" className="select" />
-            </td>
-          </tr>
-          <tr>
-            <td className="right">İzin Dönüs</td>
-            <td>
-              <input type="date" className="select" />
-            </td>
-          </tr>
-          <tr>
-            <td className="right">Açıklama</td>
-            <td>
-              <textarea name="" rows="7" placeholder="İzin Sebebi"></textarea>
-            </td>
-          </tr>
-          <tr>
-            <td className="right">İzin Talep Dosyası</td>
-            <td className="fileUpload">
-              <input type="file" className="dosya" />
-              <button className="upload">Yükle</button>
+              <input type="date" name="" id="" />
             </td>
           </tr>
         </tbody>
