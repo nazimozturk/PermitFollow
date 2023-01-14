@@ -26,9 +26,10 @@ const ModalPermitRequest = ({ userInfo }) => {
             <td className="right">Departman</td>
             <td>
               <span>
-                {userInfo?.attributes?.LastName +
-                  ' ' +
-                  userInfo?.attributes?.LastName}
+                {
+                  userInfo?.attributes?.department_manager?.data?.attributes
+                    ?.DepartmentId
+                }
               </span>
             </td>
           </tr>

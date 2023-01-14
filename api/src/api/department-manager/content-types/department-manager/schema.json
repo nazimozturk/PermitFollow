@@ -39,10 +39,10 @@
       "target": "api::departmentpersonel.departmentpersonel",
       "inversedBy": "department_managers"
     },
-    "personels": {
+    "users": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::personel.personel",
+      "target": "plugin::users-permissions.user",
       "mappedBy": "department_manager"
     }
   }

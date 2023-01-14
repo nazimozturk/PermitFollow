@@ -14,15 +14,7 @@ import ModalPersonelAdd from '../../Components/Modal/ModalPersonelAdd/ModalPerso
 import useFetch from '../../hooks/useFetch';
 
 const Admin = () => {
-  const { data, loading, error } = useFetch(`/personels?populate=*&`);
-
-  // const { data2 } = useFetch(
-  //   `/personels?populate=*&[filters][departments][id]=${data.attributes.department_manager.data?.attributes.DepartmentId}
-  //   )}`
-  // );
-  // console.log(
-  //   data[1].attributes.department_manager.data.attributes.DepartmentId
-  // );
+  const { data, loading, error } = useFetch(`/users?populate=*`);
 
   const [userInfo, setUserInfo] = useState({});
   const userDetailModal = (item) => {

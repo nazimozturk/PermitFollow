@@ -36,10 +36,10 @@
       "target": "api::permit.permit",
       "inversedBy": "permit_statuses"
     },
-    "personel": {
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::personel.personel",
+      "target": "plugin::users-permissions.user",
       "inversedBy": "permit_statuses"
     }
   }

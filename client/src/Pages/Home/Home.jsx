@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
 import './Home.scss';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import ModalPermitRequest from '../../Components/Modal/ModalPermitRequest/ModalPermitRequest';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import useFetch from '../../hooks/useFetch';
+import { AuthContext } from '../../hooks/authContext';
+import { useQuery } from '@tanstack/react-query';
+import { makeRequest } from '../../makeRequest';
 
 const Home = () => {
-  const id = useParams().id;
+  const { currentUser } = useContext(AuthContext);
 
-  const { data, loading, error } = useFetch(`/personels/1?populate=*&`);
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['/users'],
+    queryFn: () =>
+      makeRequest.get('/users/1 ?populate=*').then((res) => {
+        return res.data;
+      }),
+  });
+  const permitCreatedDate = new Date(data?.permits[0]?.CreatedDate);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -26,16 +34,16 @@ const Home = () => {
   return (
     <>
       <div className="home">
-        {loading ? (
+        {isLoading ? (
           'loading'
         ) : (
           <>
             <div className="top">
               <div className="left">
                 <h1>
-                  {data?.attributes?.FirstName +
+                  {currentUser?.user?.FirstName +
                     ' ' +
-                    data?.attributes?.LastName}
+                    currentUser?.user?.LastName}
                 </h1>
               </div>
               <div className="right">
@@ -50,7 +58,7 @@ const Home = () => {
                     <td>
                       <button
                         onClick={() => {
-                          userDetailModal(data);
+                          userDetailModal(currentUser);
                         }}
                       >
                         <PostAddOutlinedIcon />
@@ -61,11 +69,11 @@ const Home = () => {
                 <tbody>
                   <tr>
                     <th>Hak Edilen İzin</th>
-                    <td>95 Gün</td>
+                    <td>{currentUser?.user?.TotalPermitCount}</td>
                   </tr>
                   <tr>
                     <th>Kalan İzinlerim</th>
-                    <td>15 Gün</td>
+                    <td>{currentUser?.user?.AllowedPermitCount}</td>
                   </tr>
                 </tbody>
               </table>
@@ -87,15 +95,13 @@ const Home = () => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Nazım ÖZTÜRK</td>
                     <td>
-                      aaa
-                      {/* {
-                        data.attributes.department_manager.data?.attributes
-                          .DepartmentId
-                      } */}
+                      {currentUser?.user?.FirstName +
+                        ' ' +
+                        currentUser?.user?.LastName}
                     </td>
-                    <td>28-05-2022</td>
+                    <td>{data?.department_manager?.DepartmentId}</td>
+                    <td>{permitCreatedDate.toLocaleDateString()}</td>
                     <td>Yıllık İzin</td>
                     <td>09-09-2022</td>
                     <td>19-09-2022</td>

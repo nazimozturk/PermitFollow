@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './PersonelList.scss';
 import useFetch from '../../hooks/useFetch';
+import { AuthContext } from '../../hooks/authContext';
 
 const PersonelList = () => {
-  const { data, loading, error } = useFetch(`/personels`);
+  const { currentUser, loading } = useContext(AuthContext);
+
+  console.log(currentUser);
 
   return (
     <>
@@ -28,7 +31,7 @@ const PersonelList = () => {
                 </tr>
               </thead>
               <tbody>
-                {data?.map((item) => (
+                {/* {currentUser?.map((item) => (
                   <tr key={item.id}>
                     <td>{item.attributes.FirstName}</td>
                     <td>{item.attributes.LastName}</td>
@@ -38,7 +41,7 @@ const PersonelList = () => {
                     <td>{item.attributes.TotalPermitCount}</td>
                     <td>{item.attributes.ActiveStatus}</td>
                   </tr>
-                ))}
+                ))} */}
               </tbody>
             </table>
           </>

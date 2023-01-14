@@ -1,74 +1,68 @@
-import React from 'react';
-import { useState } from 'react';
-import FormInput from '../../Components/FormInput/FormInput';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../hooks/authContext';
 import './Login.scss';
 
-const Login = ({ setIsLogin }) => {
-  const [formData, setFormData] = useState({
-    email: '',
+const Login = () => {
+  const [inputs, setInputs] = useState({
+    identifier: '',
     password: '',
   });
+  const [err, setErr] = useState(null);
 
-  const inputs = [
-    {
-      id: 1,
-      name: 'email',
-      type: 'email',
-      placeholder: 'E-mail',
-      errorMessage: '',
-      label: 'E-mail',
-    },
-    {
-      id: 2,
-      name: 'password',
-      type: 'password',
-      placeholder: 'Password',
-      errorMessage: 'Kullanıcı Adı veya Şifre Hatalı',
-      label: 'Password',
-    },
-  ];
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    Login(formData)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+  const { login } = useContext(AuthContext);
 
-  const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(inputs);
+      navigate('/');
+    } catch (err) {
+      setErr(err.response.data);
+    }
   };
 
   return (
-    <>
-      <div className="login">
-        <form className="loginForm" onSubmit={handleSubmit}>
-          <div>
-            <img
-              className="logo"
-              src="https://static.wixstatic.com/media/2f2da9_35392dad114442de8b66c2962d666ca8~mv2.png"
-              alt=""
+    <div className="login">
+      <div className="card">
+        <div className="left">
+          <h1>Hello World.</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
+            alias totam numquam ipsa exercitationem dignissimos, error nam,
+            consequatur.
+          </p>
+          <span>Don't you have an account?</span>
+          <Link to="">
+            <button>Register</button>
+          </Link>
+        </div>
+        <div className="right">
+          <h1>Login</h1>
+          <form>
+            <input
+              type="text"
+              placeholder="Username"
+              name="identifier"
+              onChange={handleChange}
             />
-          </div>
-          <h1 className="loginH1">Giriş Yap</h1>
-          {inputs.map((input) => (
-            <FormInput
-              key={input.id}
-              {...input}
-              value={formData[input.name]}
-              onChange={onChange}
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={handleChange}
             />
-          ))}
-          <button type="submit" className="loginButton">
-            Giriş Yap
-          </button>
-        </form>
+            {err && err}
+            <button onClick={handleLogin}>Login</button>
+          </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

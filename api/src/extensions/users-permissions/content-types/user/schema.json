@@ -62,6 +62,39 @@
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
+    },
+    "FirstName": {
+      "type": "string"
+    },
+    "LastName": {
+      "type": "string"
+    },
+    "AllowedPermitCount": {
+      "type": "biginteger"
+    },
+    "TotalPermitCount": {
+      "type": "biginteger"
+    },
+    "ActiveStatus": {
+      "type": "integer"
+    },
+    "permits": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::permit.permit",
+      "mappedBy": "user"
+    },
+    "permit_statuses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::permit-status.permit-status",
+      "mappedBy": "user"
+    },
+    "department_manager": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::department-manager.department-manager",
+      "inversedBy": "users"
     }
   }
 }

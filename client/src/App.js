@@ -1,86 +1,82 @@
+import Login from './Pages/Login/Login.jsx';
+import Home from './Pages/Home/Home';
+import Admin from './Pages/Admin/Admin';
+import PermitList from './Pages/PermitList/PermitList';
+import PersonelList from './Pages/PersonelList/PersonelList';
+import Navbar from './Components/Navbar/Navbar';
+import Footer from './Components/Footer/Footer';
 import {
   createBrowserRouter,
   RouterProvider,
-  Outlet
-} from "react-router-dom";
-import Footer from "./Components/Footer/Footer";
-import Navbar from "./Components/Navbar/Navbar";
-import Home from "./Pages/Home/Home";
-import Permit from "./Pages/Permit/Permit";
-import PermitList from "./Pages/PermitList/PermitList";
-import PersonelList from "./Pages/PersonelList/PersonelList";
-import Admin from "./Pages/Admin/Admin";
-import Login from "./Pages/Login/Login";
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState, useEffect } from "react";
+  Outlet,
+  Navigate,
+} from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './hooks/authContext.js';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+function App() {
+  const { currentUser } = useContext(AuthContext);
 
+  const queryClient = new QueryClient();
 
-const Layout = ()=>{
-  const [isLogin,setIsLogin]=useState(null)
-  
+  const Layout = () => {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <Navbar />
+          <Outlet />
+        <Footer />
+      </QueryClientProvider>
+    );
+  };
 
+  const ProtectedRoute = ({ children }) => {
+    if (!currentUser) {
+      return <Navigate to="/Login" />;
+    }
 
-  return(
-  <div className="app">
-    {isLogin
-    ?
-    <Login setIsLogin={setIsLogin}/>     
-    :
-    <>
-    <Navbar/>
-    <Outlet/>
-    <Footer/>
-    </>}
-    
-  </div>)
-}
+    return children;
+  };
 
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: (
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: '/Admin',
+          element: <Admin />,
+        },
+        {
+          path: '/',
+          element: <Home />,
+        },
+        {
+          path: '/PermitList',
+          element: <PermitList />,
+        },
+        {
+          path: '/PersonelList',
+          element: <PersonelList />,
+        },
+      ],
+    },
+    {
+      path: '/Login',
+      element: <Login />,
+    },
+  ]);
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout/>,
-    children:[
-      {
-        path:"/",
-        element:<Home/>
-      },
-      {
-        path:"/Permit",
-        element:<Permit/>
-      },
-      {
-        path:"/PermitList",
-        element:<PermitList/>
-      },
-      {
-        path:"/PersonelList",
-        element:<PersonelList/>
-      },
-      {
-        path:"/PersonelList/:id",
-        element:<PersonelList/>
-      },
-      {
-        path:"/Admin",
-        element:<Admin/>
-      },
-      {
-        path:"/Login",
-        element:<Login/>
-      },
-    ]
-  },
-]);
-
-const App = () => {
   return (
     <div>
-       <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </div>
   );
 }
-
 
 export default App;
