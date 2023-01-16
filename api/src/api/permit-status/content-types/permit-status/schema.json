@@ -28,7 +28,8 @@
       "type": "biginteger"
     },
     "Description": {
-      "type": "text"
+      "type": "text",
+      "default": "İzin Verilmiştir."
     },
     "permit": {
       "type": "relation",
@@ -36,7 +37,7 @@
       "target": "api::permit.permit",
       "inversedBy": "permit_statuses"
     },
-    "user": {
+    "users_permissions_user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",

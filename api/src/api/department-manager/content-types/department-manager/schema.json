@@ -27,23 +27,17 @@
     "ActiveStatus": {
       "type": "integer"
     },
-    "department": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::department.department",
-      "inversedBy": "department_managers"
-    },
     "department_personel": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::departmentpersonel.departmentpersonel",
       "inversedBy": "department_managers"
     },
-    "users": {
+    "department": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "department_manager"
+      "relation": "manyToOne",
+      "target": "api::department.department",
+      "inversedBy": "department_managers"
     }
   }
 }

@@ -28,16 +28,15 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
-      <div className="card">
+    <div className="login2">
+      <div className="card2">
         <div className="left">
-          <h1>Hello World.</h1>
+          <h1>Merhaba Dünya.</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
+            Bu sistem ile izinleriniz hakkında herşeyi çok basit bir şekilde
+            takip ediyor olacaksınız. Bana dua etmeyi unutmayalım.
           </p>
-          <span>Don't you have an account?</span>
+          <span>Hesabınız yok mu?</span>
           <Link to="">
             <button>Register</button>
           </Link>

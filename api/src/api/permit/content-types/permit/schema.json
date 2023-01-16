@@ -47,17 +47,17 @@
     "Type": {
       "type": "integer"
     },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "permits"
+    },
     "permit_statuses": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::permit-status.permit-status",
       "mappedBy": "permit"
-    },
-    "user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "permits"
     }
   }
 }

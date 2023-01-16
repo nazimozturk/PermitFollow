@@ -19,7 +19,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   const { currentUser } = useContext(AuthContext);
 
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions:{
+      queries:{
+        refetchOnWindowFocus:false
+      }
+    }
+  });
 
   const Layout = () => {
     return (
@@ -49,12 +55,12 @@ function App() {
       ),
       children: [
         {
-          path: '/Admin',
-          element: <Admin />,
-        },
-        {
           path: '/',
           element: <Home />,
+        },
+        {
+          path: '/Admin',
+          element: <Admin />,
         },
         {
           path: '/PermitList',

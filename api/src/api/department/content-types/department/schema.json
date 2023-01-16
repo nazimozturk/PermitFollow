@@ -21,6 +21,12 @@
     "ActiveStatus": {
       "type": "integer"
     },
+    "department_personels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::departmentpersonel.departmentpersonel",
+      "mappedBy": "department"
+    },
     "department_managers": {
       "type": "relation",
       "relation": "oneToMany",

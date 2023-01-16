@@ -1,11 +1,15 @@
-.login {
+.login2 {
   height: 100vh;
   background-color: rgb(193, 190, 255);
   display: flex;
   align-items: center;
   justify-content: center;
 
-  .card {
+  *:focus {
+    outline: none;
+  }
+
+  .card2 {
     width: 50%;
     display: flex;
     background-color: white;

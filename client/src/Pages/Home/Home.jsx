@@ -7,18 +7,40 @@ import Modal from 'react-bootstrap/Modal';
 import { AuthContext } from '../../hooks/authContext';
 import { useQuery } from '@tanstack/react-query';
 import { makeRequest } from '../../makeRequest';
+import * as moment from 'moment';
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['/users'],
+  const { isLoading, data } = useQuery({
+    queryKey: ['users'],
     queryFn: () =>
-      makeRequest.get('/users/1 ?populate=*').then((res) => {
-        return res.data;
-      }),
+      makeRequest
+        .get(`/users/${currentUser.user.id}?populate=*`)
+        .then((res) => {
+          return res.data;
+        }),
   });
+
+  const getDepartments = useQuery({
+    queryKey: ['departmentPersonels'],
+    queryFn: () =>
+      makeRequest
+        .get(`/departmentpersonels/${currentUser.user.id}?populate=*`)
+        .then((res) => {
+          return res.data;
+        }),
+  });
+  const departmentsName =
+    getDepartments.data?.data?.attributes?.department?.data?.attributes
+      ?.DepartmentName;
+
   const permitCreatedDate = new Date(data?.permits[0]?.CreatedDate);
+  const permitStartDate = new Date(data?.permits[0]?.StartDate);
+  const permitEndDate = new Date(data?.permits[0]?.EndDate);
+  const permitDesc = data?.permit_statuses[0]?.Description;
+
+  // console.log(moment(data?.permits[0].CreatedDate).format('L'));
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -94,21 +116,27 @@ const Home = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      {currentUser?.user?.FirstName +
-                        ' ' +
-                        currentUser?.user?.LastName}
-                    </td>
-                    <td>{data?.department_manager?.DepartmentId}</td>
-                    <td>{permitCreatedDate.toLocaleDateString()}</td>
-                    <td>Yıllık İzin</td>
-                    <td>09-09-2022</td>
-                    <td>19-09-2022</td>
-                    <td>Onaylandı</td>
-                    <td>OK</td>
-                    <td>Nazım</td>
-                  </tr>
+                  {data?.permits?.map((item) => (
+                    <tr key={item.id}>
+                      <td>
+                        {currentUser?.user?.FirstName +
+                          ' ' +
+                          currentUser?.user?.LastName}
+                      </td>
+                      <td>{departmentsName}</td>
+
+                      <td>{data?.map((x) => {})?.CreatedDate}</td>
+
+                      <td>Yıllık İzin</td>
+                      <td>{moment(data?.permits?.createdAt).format('L')}</td>
+                      <td>
+                        {moment(data?.permits[item.id]?.EndDate).format('L')}
+                      </td>
+                      <td>Onaylandı</td>
+                      <td>{permitDesc}</td>
+                      <td>Nazım</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

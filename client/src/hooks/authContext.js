@@ -9,7 +9,7 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
-    const res = await axios.post("http://localhost:1337/api/auth/local", inputs, {
+    const res = await axios.post(process.env.REACT_APP_API_URL + "/auth/local", inputs, {
       withCredentials: true,
     });
 
@@ -25,4 +25,11 @@ export const AuthContextProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const logout = (req, res) => {
+  res.clearCookie("accessToken",{
+    secure:true,
+    sameSite:"none"
+  }).status(200).json("User has been logged out.")
 };

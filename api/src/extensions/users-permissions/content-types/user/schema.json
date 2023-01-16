@@ -82,19 +82,19 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::permit.permit",
-      "mappedBy": "user"
+      "mappedBy": "users_permissions_user"
     },
     "permit_statuses": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::permit-status.permit-status",
-      "mappedBy": "user"
+      "mappedBy": "users_permissions_user"
     },
-    "department_manager": {
+    "department_personels": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::department-manager.department-manager",
-      "inversedBy": "users"
+      "relation": "oneToMany",
+      "target": "api::departmentpersonel.departmentpersonel",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

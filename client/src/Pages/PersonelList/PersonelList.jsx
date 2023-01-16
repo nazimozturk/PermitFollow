@@ -1,17 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import './PersonelList.scss';
-import useFetch from '../../hooks/useFetch';
-import { AuthContext } from '../../hooks/authContext';
+import { makeRequest } from '../../makeRequest';
+import { useQuery } from '@tanstack/react-query';
 
 const PersonelList = () => {
-  const { currentUser, loading } = useContext(AuthContext);
-
-  console.log(currentUser);
+  const { isLoading, data } = useQuery({
+    queryKey: ['/users'],
+    queryFn: () =>
+      makeRequest.get('/users?populate=*').then((res) => {
+        return res.data;
+      }),
+  });
 
   return (
     <>
       <div className="personelList">
-        {loading ? (
+        {isLoading ? (
           'loading'
         ) : (
           <>
@@ -31,17 +35,17 @@ const PersonelList = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* {currentUser?.map((item) => (
+                {data?.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.attributes.FirstName}</td>
-                    <td>{item.attributes.LastName}</td>
-                    <td>{item.attributes.Email}</td>
-                    <td>{item.attributes.FirstName}</td>
-                    <td>{item.attributes.FirstName}</td>
-                    <td>{item.attributes.TotalPermitCount}</td>
-                    <td>{item.attributes.ActiveStatus}</td>
+                    <td>{item.FirstName}</td>
+                    <td>{item.LastName}</td>
+                    <td>{item.department_manager?.DepartmentId}</td>
+                    {/* <td>{item.}</td>
+                    <td>{item.}</td>
+                    <td>{item.}</td>
+                    <td>{item.}</td> */}
                   </tr>
-                ))} */}
+                ))}
               </tbody>
             </table>
           </>
