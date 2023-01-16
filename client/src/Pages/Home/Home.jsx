@@ -35,12 +35,18 @@ const Home = () => {
     getDepartments.data?.data?.attributes?.department?.data?.attributes
       ?.DepartmentName;
 
-  const permitCreatedDate = new Date(data?.permits[0]?.CreatedDate);
-  const permitStartDate = new Date(data?.permits[0]?.StartDate);
-  const permitEndDate = new Date(data?.permits[0]?.EndDate);
-  const permitDesc = data?.permit_statuses[0]?.Description;
+  // const permitCreatedDate = new Date(data?.permits[0]?.CreatedDate);
+  // const permitStartDate = new Date(data?.permits[0]?.StartDate);
+  // const permitEndDate = new Date(data?.permits[0]?.EndDate);
+  // const permitDesc = data?.permit_statuses[0]?.Description;
 
   // console.log(moment(data?.permits[0].CreatedDate).format('L'));
+
+  // console.log(
+  //   data?.permits.map((x, index) => {
+  //     return x.createdAt;
+  //   })
+  // );
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -116,7 +122,7 @@ const Home = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.permits?.map((item) => (
+                  {data?.permits?.map((item, index) => (
                     <tr key={item.id}>
                       <td>
                         {currentUser?.user?.FirstName +
@@ -125,15 +131,15 @@ const Home = () => {
                       </td>
                       <td>{departmentsName}</td>
 
-                      <td>{data?.map((x) => {})?.CreatedDate}</td>
+                      <td>
+                        {moment(data.permits[index].CreatedDate).format('L')}
+                      </td>
 
                       <td>Yıllık İzin</td>
                       <td>{moment(data?.permits?.createdAt).format('L')}</td>
-                      <td>
-                        {moment(data?.permits[item.id]?.EndDate).format('L')}
-                      </td>
+                      <td>{moment(data?.permits[0]?.EndDate).format('L')}</td>
                       <td>Onaylandı</td>
-                      <td>{permitDesc}</td>
+                      <td>abc</td>
                       <td>Nazım</td>
                     </tr>
                   ))}
