@@ -31,22 +31,12 @@ const Home = () => {
           return res.data;
         }),
   });
+
   const departmentsName =
     getDepartments.data?.data?.attributes?.department?.data?.attributes
       ?.DepartmentName;
 
-  // const permitCreatedDate = new Date(data?.permits[0]?.CreatedDate);
-  // const permitStartDate = new Date(data?.permits[0]?.StartDate);
-  // const permitEndDate = new Date(data?.permits[0]?.EndDate);
-  // const permitDesc = data?.permit_statuses[0]?.Description;
-
-  // console.log(moment(data?.permits[0].CreatedDate).format('L'));
-
-  // console.log(
-  //   data?.permits.map((x, index) => {
-  //     return x.createdAt;
-  //   })
-  // );
+  //  console.log(getPermit);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

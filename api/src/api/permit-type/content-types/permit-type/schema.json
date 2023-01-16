@@ -13,7 +13,7 @@
   "pluginOptions": {},
   "attributes": {
     "Type": {
-      "type": "string"
+      "type": "integer"
     },
     "permits": {
       "type": "relation",
