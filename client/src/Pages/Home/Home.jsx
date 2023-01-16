@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import { AuthContext } from '../../hooks/authContext';
 import { useQuery } from '@tanstack/react-query';
 import { makeRequest } from '../../makeRequest';
-import * as moment from 'moment';
+import moment from 'moment';
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
@@ -132,14 +132,24 @@ const Home = () => {
                       <td>{departmentsName}</td>
 
                       <td>
-                        {moment(data.permits[index].CreatedDate).format('L')}
+                        {moment(data?.permits[index]?.CreatedDate).format(
+                          'DD/MM/YYYY'
+                        )}
                       </td>
 
-                      <td>Yıllık İzin</td>
-                      <td>{moment(data?.permits?.createdAt).format('L')}</td>
-                      <td>{moment(data?.permits[0]?.EndDate).format('L')}</td>
-                      <td>Onaylandı</td>
-                      <td>abc</td>
+                      <td>{data?.permits[index]?.Type}</td>
+                      <td>
+                        {moment(data?.permits[index]?.StartDate).format(
+                          'DD/MM/YYYY'
+                        )}
+                      </td>
+                      <td>
+                        {moment(data?.permits[index]?.EndDate).format(
+                          'DD/MM/YYYY'
+                        )}
+                      </td>
+                      <td>{data?.permits[index]?.Status}</td>
+                      <td>{data?.permits[index]?.Description}</td>
                       <td>Nazım</td>
                     </tr>
                   ))}

@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "PermitId": {
-      "type": "biginteger"
-    },
     "PersonelId": {
       "type": "biginteger"
     },
@@ -44,9 +41,6 @@
     "Status": {
       "type": "integer"
     },
-    "Type": {
-      "type": "integer"
-    },
     "users_permissions_user": {
       "type": "relation",
       "relation": "manyToOne",
@@ -58,6 +52,12 @@
       "relation": "oneToMany",
       "target": "api::permit-status.permit-status",
       "mappedBy": "permit"
+    },
+    "permit_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::permit-type.permit-type",
+      "inversedBy": "permits"
     }
   }
 }
