@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "permit_statuses",
+  "info": {
+    "singularName": "permit-status",
+    "pluralName": "permit-statuses",
+    "displayName": "PermitStatus",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "PermitId": {
+      "type": "biginteger"
+    },
+    "WaitPersonelId": {
+      "type": "biginteger"
+    },
+    "Sequence": {
+      "type": "integer"
+    },
+    "Status": {
+      "type": "boolean"
+    },
+    "Description": {
+      "type": "richtext"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "permit_statuses"
+    },
+    "permit": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::permit.permit",
+      "inversedBy": "permit_statuses"
+    }
+  }
+}

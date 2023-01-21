@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "department_personels",
+  "info": {
+    "singularName": "department-personel",
+    "pluralName": "department-personels",
+    "displayName": "DepartmentPersonel",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "PersonelId": {
+      "type": "biginteger"
+    },
+    "DepartmentId": {
+      "type": "biginteger"
+    },
+    "department_managers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::department-manager.department-manager",
+      "mappedBy": "department_personel"
+    },
+    "department": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::department.department",
+      "inversedBy": "department_personels"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "department_personels"
+    }
+  }
+}

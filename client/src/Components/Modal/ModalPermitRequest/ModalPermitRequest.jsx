@@ -1,7 +1,56 @@
-import React from 'react';
-import '../ModalPermitRequest/ModalPermitRequest.scss';
+import { useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { makeRequest } from "../../../makeRequest";
+import "../ModalPermitRequest/ModalPermitRequest.scss";
+import Button from "react-bootstrap/Button";
+import moment from "moment";
 
 const ModalPermitRequest = ({ userInfo }) => {
+  const getPermitType = useQuery({
+    queryKey: ["permit-types"],
+    queryFn: () =>
+      makeRequest.get(`/permit-types`).then((res) => {
+        return res.data;
+      }),
+  });
+
+  // const [inputs, setInputs] = useState({
+  //   data: {
+  //     PersonelId: userInfo[0].user.id,
+  //     Description: "",
+  //     StartDate: "",
+  //     EndDate: "",
+  //   },
+  // });
+
+  const [inputs, setInputs] = useState({
+    data: {
+      PersonelId: userInfo[0].user.id,
+      Description: "",
+      StartDate: "",
+      EndDate: "",
+      File: {
+        data: null,
+      },
+    },
+  });
+
+  console.log(inputs);
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const [err, setErr] = useState(null);
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    try {
+      await makeRequest.post("/permits", inputs);
+    } catch (err) {
+      setErr(err.response.data);
+    }
+  };
   return (
     <>
       <table className="modalTable">
@@ -16,9 +65,9 @@ const ModalPermitRequest = ({ userInfo }) => {
             <td className="right">İsim Soyisim</td>
             <td>
               <span>
-                {userInfo?.attributes?.FirstName +
-                  ' ' +
-                  userInfo?.attributes?.LastName}
+                {userInfo[0]?.user?.FirstName +
+                  " " +
+                  userInfo[0]?.user?.LastName}
               </span>
             </td>
           </tr>
@@ -27,8 +76,8 @@ const ModalPermitRequest = ({ userInfo }) => {
             <td>
               <span>
                 {
-                  userInfo?.attributes?.department_manager?.data?.attributes
-                    ?.DepartmentId
+                  userInfo[1]?.data?.data?.attributes?.department?.data
+                    ?.attributes?.DepartmentName
                 }
               </span>
             </td>
@@ -42,31 +91,54 @@ const ModalPermitRequest = ({ userInfo }) => {
           <tr>
             <td className="right">İzin Tipi</td>
             <td>
-              <select className="select" id="format">
-                <option disabled>izin Tipini Seçiniz</option>
-                <option value="1">Yıllık izni</option>
-                <option value="2">Mazeret izni</option>
-                <option value="3">Evlilik izni</option>
-                <option value="4">Taşınma izni</option>
+              <select
+                className="select"
+                id="format"
+                name="permitType"
+                onChange={handleChange}
+              >
+                <option disabled selected="selected">
+                  izin Tipini Seçiniz
+                </option>
+                {getPermitType?.data?.data.map((item, index) => (
+                  <option value={item.id} key={item.id}>
+                    {item.attributes.PermitName}
+                  </option>
+                ))}
               </select>
             </td>
           </tr>
           <tr>
             <td className="right">İzne Çıkış</td>
             <td>
-              <input type="date" className="select" />
+              <input
+                type="date"
+                className="select"
+                name="StartDate"
+                onChange={handleChange}
+              />
             </td>
           </tr>
           <tr>
             <td className="right">İzin Dönüs</td>
             <td>
-              <input type="date" className="select" />
+              <input
+                type="date"
+                className="select"
+                name="EndDate"
+                onChange={handleChange}
+              />
             </td>
           </tr>
           <tr>
             <td className="right">Açıklama</td>
             <td>
-              <textarea name="" rows="7" placeholder="İzin Sebebi"></textarea>
+              <textarea
+                name="Description"
+                rows="7"
+                placeholder="İzin Sebebi"
+                onChange={handleChange}
+              ></textarea>
             </td>
           </tr>
           <tr>
@@ -74,6 +146,17 @@ const ModalPermitRequest = ({ userInfo }) => {
             <td className="fileUpload">
               <input type="file" className="dosya" />
               <button className="upload">Yükle</button>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2}>
+              <Button
+                style={{ float: "right", marginLeft: "10px" }}
+                variant="primary"
+                onClick={handleClick}
+              >
+                İzin Talep Et
+              </Button>
             </td>
           </tr>
         </tbody>

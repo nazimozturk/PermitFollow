@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "departments",
+  "info": {
+    "singularName": "department",
+    "pluralName": "departments",
+    "displayName": "Department"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "DepartmentName": {
+      "type": "string"
+    },
+    "Status": {
+      "type": "boolean"
+    },
+    "department_managers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::department-manager.department-manager",
+      "mappedBy": "department"
+    },
+    "department_personels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::department-personel.department-personel",
+      "mappedBy": "department"
+    }
+  }
+}

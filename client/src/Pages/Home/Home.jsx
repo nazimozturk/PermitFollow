@@ -1,19 +1,19 @@
-import React, { useContext, useState } from 'react';
-import './Home.scss';
-import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
-import ModalPermitRequest from '../../Components/Modal/ModalPermitRequest/ModalPermitRequest';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { AuthContext } from '../../hooks/authContext';
-import { useQuery } from '@tanstack/react-query';
-import { makeRequest } from '../../makeRequest';
-import moment from 'moment';
+import React, { useContext, useState } from "react";
+import "./Home.scss";
+import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
+import ModalPermitRequest from "../../Components/Modal/ModalPermitRequest/ModalPermitRequest";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { AuthContext } from "../../hooks/authContext";
+import { useQuery } from "@tanstack/react-query";
+import { makeRequest } from "../../makeRequest";
+import moment from "moment";
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
 
   const { isLoading, data } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: () =>
       makeRequest
         .get(`/users/${currentUser.user.id}?populate=*`)
@@ -23,10 +23,10 @@ const Home = () => {
   });
 
   const getDepartments = useQuery({
-    queryKey: ['departmentPersonels'],
+    queryKey: ["department-personels"],
     queryFn: () =>
       makeRequest
-        .get(`/departmentpersonels/${currentUser.user.id}?populate=*`)
+        .get(`/department-personels/${currentUser.user.id}?populate=*`)
         .then((res) => {
           return res.data;
         }),
@@ -35,8 +35,6 @@ const Home = () => {
   const departmentsName =
     getDepartments.data?.data?.attributes?.department?.data?.attributes
       ?.DepartmentName;
-
-  //  console.log(getPermit);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -49,18 +47,45 @@ const Home = () => {
     handleShow(true);
   };
 
+  const [permit, setPermit] = useState([]);
+  const getPermits = useQuery({
+    queryKey: ["permits"],
+    queryFn: () =>
+      makeRequest.get(`/permits?populate=*`).then((res) => {
+        let pertmitType = [];
+        for (let i = 0; i < res.data.data.length; i++) {
+          pertmitType.push(res.data.data[i]);
+        }
+        setPermit(pertmitType);
+        return res.data;
+      }),
+  });
+
+  // const [err, setErr] = useState(null);
+
+  // const handleClick = async (e) => {
+  //   e.preventDefault();
+  //   setShow(false);
+
+  //   try {
+  //     await makeRequest.post(`/permits`, inputs);
+  //   } catch (err) {
+  //     setErr(err.response.data);
+  //   }
+  // };
+
   return (
     <>
       <div className="home">
         {isLoading ? (
-          'loading'
+          "loading"
         ) : (
           <>
             <div className="top">
               <div className="left">
                 <h1>
                   {currentUser?.user?.FirstName +
-                    ' ' +
+                    " " +
                     currentUser?.user?.LastName}
                 </h1>
               </div>
@@ -116,29 +141,36 @@ const Home = () => {
                     <tr key={item.id}>
                       <td>
                         {currentUser?.user?.FirstName +
-                          ' ' +
+                          " " +
                           currentUser?.user?.LastName}
                       </td>
                       <td>{departmentsName}</td>
-
                       <td>
                         {moment(data?.permits[index]?.CreatedDate).format(
-                          'DD/MM/YYYY'
+                          "DD/MM/YYYY"
                         )}
                       </td>
-
-                      <td>{data?.permits[index]?.Type}</td>
+                      <td>
+                        {
+                          permit[index]?.attributes?.permit_type?.data
+                            ?.attributes?.PermitName
+                        }
+                      </td>
                       <td>
                         {moment(data?.permits[index]?.StartDate).format(
-                          'DD/MM/YYYY'
+                          "DD/MM/YYYY"
                         )}
                       </td>
                       <td>
                         {moment(data?.permits[index]?.EndDate).format(
-                          'DD/MM/YYYY'
+                          "DD/MM/YYYY"
                         )}
                       </td>
-                      <td>{data?.permits[index]?.Status}</td>
+                      <td>
+                        {data?.permit_statuses[index].Status
+                          ? "Onaylandı"
+                          : "Reddedildi"}
+                      </td>
                       <td>{data?.permits[index]?.Description}</td>
                       <td>Nazım</td>
                     </tr>
@@ -155,16 +187,9 @@ const Home = () => {
           <Modal.Title>İzin Talep Formu</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ModalPermitRequest userInfo={userInfo} />
+          <ModalPermitRequest userInfo={[currentUser, getDepartments]} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Kapat
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            İzin Talep Et
-          </Button>
-        </Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
     </>
   );

@@ -5,6 +5,6 @@ export const makeRequest = axios.create({
   withCredentials: true,
   headers: {
     Authorization: "bearer " + process.env.REACT_APP_API_TOKEN,
-    // Authorization: "bearer " + localStorage.getItem("jwtToken")
+    // Authorization: "bearer " + localStorage.getItem("jwt")
   },
 });
