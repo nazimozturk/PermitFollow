@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { makeRequest } from "../../../makeRequest";
 import "../ModalPermitRequest/ModalPermitRequest.scss";
 import Button from "react-bootstrap/Button";
 import moment from "moment";
+import { AuthContext } from "../../../hooks/authContext";
+import { Navigate } from "react-router-dom";
 
 const ModalPermitRequest = ({ userInfo }) => {
   const getPermitType = useQuery({
@@ -14,26 +16,17 @@ const ModalPermitRequest = ({ userInfo }) => {
       }),
   });
 
-  // const [inputs, setInputs] = useState({
-  //   data: {
-  //     PersonelId: userInfo[0].user.id,
-  //     Description: "",
-  //     StartDate: "",
-  //     EndDate: "",
+  // const [permitData, setInputs] = useState({
+  //   PersonelId: userInfo[0].user.id,
+  //   Description: "",
+  //   StartDate: "",
+  //   EndDate: "",
+  //   File: {
+  //     data: null,
   //   },
   // });
 
-  const [inputs, setInputs] = useState({
-    data: {
-      PersonelId: userInfo[0].user.id,
-      Description: "",
-      StartDate: "",
-      EndDate: "",
-      File: {
-        data: null,
-      },
-    },
-  });
+  const [inputs, setInputs] = useState({});
 
   console.log(inputs);
 
@@ -46,11 +39,22 @@ const ModalPermitRequest = ({ userInfo }) => {
     e.preventDefault();
 
     try {
-      await makeRequest.post("/permits", inputs);
+      await makeRequest.post("/permits", {
+        data: {
+          PersonelId: userInfo[0].user.id,
+          Description: inputs.Description,
+          StartDate: inputs.StartDate,
+          EndDate: inputs.EndDate,
+          File: {
+            data: null,
+          },
+        },
+      });
     } catch (err) {
       setErr(err.response.data);
     }
   };
+
   return (
     <>
       <table className="modalTable">
