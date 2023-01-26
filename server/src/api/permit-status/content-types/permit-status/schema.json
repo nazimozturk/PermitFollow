@@ -21,9 +21,6 @@
     "Sequence": {
       "type": "integer"
     },
-    "Status": {
-      "type": "boolean"
-    },
     "Description": {
       "type": "richtext"
     },
@@ -33,11 +30,14 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "permit_statuses"
     },
-    "permit": {
+    "Status": {
+      "type": "integer"
+    },
+    "permits": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::permit.permit",
-      "inversedBy": "permit_statuses"
+      "mappedBy": "permit_status"
     }
   }
 }

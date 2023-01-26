@@ -63,28 +63,42 @@
     table {
       table-layout: fixed;
       thead {
-        th {
-          background-color: black;
-          color: white;
-          height: 50px;
-          width: 250px;
-          text-align: center;
+        tr{
+          th {
+            background-color: black;
+            color: white;
+            height: 50px;
+            width: 250px;
+            text-align: center;
+          }
         }
       }
       tbody {
         cursor: default;
         text-align: center;
         tr {
+          border-bottom: 0.5px solid lightgray;
           cursor: default;
           height: 50px;
           &:hover {
-            background-color: #21252918;
+            background-color: #e9e9e9;
             color: black;
             font-weight: bold;
             height: 50px;
+            border-bottom: 0.5 solid lightgray;
           }
         }
-      }
+      }      
     }
   }
 }
+.tfoot{
+  background-color: black;
+  color: white;
+  height: 50px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+

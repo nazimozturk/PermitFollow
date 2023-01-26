@@ -47,11 +47,14 @@
       "target": "api::permit-type.permit-type",
       "inversedBy": "permits"
     },
-    "permit_statuses": {
+    "Status": {
+      "type": "integer"
+    },
+    "permit_status": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
       "target": "api::permit-status.permit-status",
-      "mappedBy": "permit"
+      "inversedBy": "permits"
     }
   }
 }

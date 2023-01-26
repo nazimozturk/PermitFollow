@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import './Admin.scss';
-import { Badge } from '@mui/material';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
-import EmailIcon from '@mui/icons-material/Email';
-import ModalPersonnelOperations from '../../Components/Modal/ModalPersonnelOperations/ModalPersonnelOperations';
-import ModalPersonelAdd from '../../Components/Modal/ModalPersonelAdd/ModalPersonelAdd';
-import useFetch from '../../hooks/useFetch';
+import React, { useEffect, useState } from "react";
+import "./Admin.scss";
+import { Badge } from "@mui/material";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
+import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import EmailIcon from "@mui/icons-material/Email";
+import ModalPersonnelOperations from "../../Components/Modal/ModalPersonnelOperations/ModalPersonnelOperations";
+import ModalPersonelAdd from "../../Components/Modal/ModalPersonelAdd/ModalPersonelAdd";
+import useFetch from "../../hooks/useFetch";
 
 const Admin = () => {
   const { data, loading, error } = useFetch(`/users?populate=*`);
@@ -29,7 +29,7 @@ const Admin = () => {
   const handleCloseLg = () => setLgShow(false);
 
   const [isActive, setIsActive] = useState({
-    id: '',
+    id: "",
   });
   useEffect(() => {}, [isActive]);
   const hideShowDiv = (e) => {
@@ -41,7 +41,7 @@ const Admin = () => {
   return (
     <>
       {loading ? (
-        'loading'
+        "loading"
       ) : (
         <>
           <div className="admin">
@@ -70,8 +70,8 @@ const Admin = () => {
                     color="primary"
                     className="badgeColor"
                     anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
+                      vertical: "bottom",
+                      horizontal: "right",
                     }}
                   >
                     <EmailIcon color="primary" className="badgeColor" />
@@ -81,9 +81,9 @@ const Admin = () => {
             </div>
             <div
               className={
-                isActive.id === 'personelManager'
+                isActive.id === "personelManager"
                   ? `center`
-                  : 'personelManager d-none'
+                  : "personelManager d-none"
               }
             >
               <table>
@@ -116,7 +116,7 @@ const Admin = () => {
                     <tr key={item.id}>
                       <td>
                         {item.attributes.FirstName +
-                          ' ' +
+                          " " +
                           item.attributes.LastName}
                       </td>
                       <td>
@@ -147,9 +147,9 @@ const Admin = () => {
             </div>
             <div
               className={
-                isActive.id === 'onayBekleyen'
+                isActive.id === "onayBekleyen"
                   ? `bottom`
-                  : 'onayBekleyen d-none'
+                  : "onayBekleyen d-none"
               }
             >
               <table>

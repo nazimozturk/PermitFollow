@@ -1,11 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { makeRequest } from "../../../makeRequest";
 import "../ModalPermitRequest/ModalPermitRequest.scss";
 import Button from "react-bootstrap/Button";
-import moment from "moment";
-import { AuthContext } from "../../../hooks/authContext";
-import { Navigate } from "react-router-dom";
 
 const ModalPermitRequest = ({ userInfo }) => {
   const getPermitType = useQuery({
@@ -16,19 +13,7 @@ const ModalPermitRequest = ({ userInfo }) => {
       }),
   });
 
-  // const [permitData, setInputs] = useState({
-  //   PersonelId: userInfo[0].user.id,
-  //   Description: "",
-  //   StartDate: "",
-  //   EndDate: "",
-  //   File: {
-  //     data: null,
-  //   },
-  // });
-
   const [inputs, setInputs] = useState({});
-
-  console.log(inputs);
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -39,7 +24,7 @@ const ModalPermitRequest = ({ userInfo }) => {
     e.preventDefault();
 
     try {
-      await makeRequest.post("/permits", {
+      await makeRequest.post(`/permits?populate=*`, {
         data: {
           PersonelId: userInfo[0].user.id,
           Description: inputs.Description,
@@ -47,6 +32,15 @@ const ModalPermitRequest = ({ userInfo }) => {
           EndDate: inputs.EndDate,
           File: {
             data: null,
+          },
+          users_permissions_user: {
+            id: userInfo[0].user.id,
+          },
+          permit_type: {
+            id: inputs.permitType,
+          },
+          permit_status: {
+            id: 2,
           },
         },
       });
@@ -100,8 +94,9 @@ const ModalPermitRequest = ({ userInfo }) => {
                 id="format"
                 name="permitType"
                 onChange={handleChange}
+                defaultValue={"DEFAULT"}
               >
-                <option disabled selected="selected">
+                <option disabled value="DEFAULT">
                   izin Tipini Seçiniz
                 </option>
                 {getPermitType?.data?.data.map((item, index) => (

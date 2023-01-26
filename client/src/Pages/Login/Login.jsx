@@ -1,12 +1,12 @@
-import { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../hooks/authContext';
-import './Login.scss';
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../hooks/authContext";
+import "./Login.scss";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
-    identifier: '',
-    password: '',
+    identifier: "",
+    password: "",
   });
   const [err, setErr] = useState(null);
 
@@ -21,7 +21,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(inputs);
-      navigate('/');
+      navigate("/");
     } catch (err) {
       setErr(err.response.data);
     }
