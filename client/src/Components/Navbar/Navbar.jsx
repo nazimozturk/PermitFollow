@@ -1,37 +1,48 @@
-import React from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar2 from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
 
-const Navbar = () => {
+function Navbar() {
   return (
-    <>
-      <div className="navbarMy">
-        <div className="menu">
-          <div className="imgLogo">
-            <Link to="/" className="link">
-              <img
-                src="https://static.wixstatic.com/media/2f2da9_35392dad114442de8b66c2962d666ca8~mv2.png"
-                alt=""
-                className="logo"
-              />
-            </Link>
-          </div>
+    <Navbar2 collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Container>
+        <Navbar2.Brand>
           <Link to="/" className="link">
-            <div className="menuItem">Home</div>
+            <div className="menuItem">Logo</div>
           </Link>
-          <Link to="/PermitList" className="link">
-            <div className="menuItem">Permit List</div>
-          </Link>
-          <Link to="/PersonelList" className="link">
-            <div className="menuItem">Personel List</div>
-          </Link>
-          <Link to="/Admin" className="linkAdmin">
-            <div className="menuItemAdmin">Admin</div>
-          </Link>
-        </div>
-      </div>
-    </>
+        </Navbar2.Brand>
+        <Navbar2.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar2.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link>
+              <Link to="/" className="link">
+                <div className="menuItem">Home</div>
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/PermitList" className="link">
+                <div className="menuItem">Permit List</div>
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/PersonelList" className="link">
+                <div className="menuItem">Personel List</div>
+              </Link>
+            </Nav.Link>
+          </Nav>
+          <Nav>
+            <Nav.Link eventKey="3">
+              <Link to="/Admin" className="link">
+                <div className="menuItemAdmin">Admin</div>
+              </Link>
+            </Nav.Link>
+          </Nav>
+        </Navbar2.Collapse>
+      </Container>
+    </Navbar2>
   );
-};
+}
 
 export default Navbar;

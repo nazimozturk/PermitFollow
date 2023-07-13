@@ -11,10 +11,19 @@ import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import ModalPersonnelOperations from "../../Components/Modal/ModalPersonnelOperations/ModalPersonnelOperations";
 import ModalPersonelAdd from "../../Components/Modal/ModalPersonelAdd/ModalPersonelAdd";
-import useFetch from "../../hooks/useFetch";
-
+import { makeRequest } from "../../makeRequest";
+import { useQuery } from "@tanstack/react-query";
 const Admin = () => {
-  const { data, loading, error } = useFetch(`/users?populate=*`);
+  const {
+    isLoading,
+    data: { data = [] },
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: () =>
+      makeRequest.get(`/users?populate=*`).then((res) => {
+        return res;
+      }),
+  });
 
   const [userInfo, setUserInfo] = useState({});
   const userDetailModal = (item) => {
@@ -40,7 +49,7 @@ const Admin = () => {
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         "loading"
       ) : (
         <>
@@ -64,7 +73,7 @@ const Admin = () => {
                     hideShowDiv(e);
                   }}
                 >
-                  Onay Beklenen  
+                  Onay Beklenen
                   <Badge
                     badgeContent={4}
                     color="primary"
@@ -114,21 +123,17 @@ const Admin = () => {
                 <tbody>
                   {data?.map((item) => (
                     <tr key={item.id}>
-                      <td>
-                        {item.attributes.FirstName +
-                          " " +
-                          item.attributes.LastName}
-                      </td>
+                      <td>{item?.FirstName + " " + item?.LastName}</td>
                       <td>
                         {
-                          item.attributes.department_manager.data?.attributes
-                            .DepartmentId
+                          item?.attributes?.department_manager.data?.attributes
+                            ?.DepartmentId
                         }
                       </td>
-                      <td>{item.attributes.Email}</td>
-                      <td>{item.attributes.FirstName}</td>
-                      <td>{item.attributes.TotalPermitCount}</td>
-                      <td>{item.attributes.ActiveStatus}</td>
+                      <td>{item?.attributes?.Email}</td>
+                      <td>{item?.attributes?.FirstName}</td>
+                      <td>{item?.attributes?.TotalPermitCount}</td>
+                      <td>{item?.attributes?.ActiveStatus}</td>
                       <td>
                         <div className="icon">
                           <ManageAccountsIcon

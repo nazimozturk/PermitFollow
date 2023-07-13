@@ -1,37 +1,37 @@
-import Login from './Pages/Login/Login.jsx';
-import Home from './Pages/Home/Home';
-import Admin from './Pages/Admin/Admin';
-import PermitList from './Pages/PermitList/PermitList';
-import PersonelList from './Pages/PersonelList/PersonelList';
-import Navbar from './Components/Navbar/Navbar';
-import Footer from './Components/Footer/Footer';
+import Login from "./Pages/Login/Login.jsx";
+import Home from "./Pages/Home/Home";
+import Admin from "./Pages/Admin/Admin";
+import PermitList from "./Pages/PermitList/PermitList";
+import PersonelList from "./Pages/PersonelList/PersonelList";
+import Navbar from "./Components/Navbar/Navbar";
+import Footer from "./Components/Footer/Footer";
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
   Navigate,
-} from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from './hooks/authContext.js';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import 'bootstrap/dist/css/bootstrap.min.css';
+} from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./hooks/authContext.js";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
 
   const queryClient = new QueryClient({
-    defaultOptions:{
-      queries:{
-        refetchOnWindowFocus:false
-      }
-    }
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
   });
 
   const Layout = () => {
     return (
       <QueryClientProvider client={queryClient}>
         <Navbar />
-          <Outlet />
+        <Outlet />
         <Footer />
       </QueryClientProvider>
     );
@@ -47,7 +47,7 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: "/",
       element: (
         <ProtectedRoute>
           <Layout />
@@ -55,25 +55,25 @@ function App() {
       ),
       children: [
         {
-          path: '/',
+          path: "/",
           element: <Home />,
         },
         {
-          path: '/Admin',
+          path: "/Admin",
           element: <Admin />,
         },
         {
-          path: '/PermitList',
+          path: "/PermitList",
           element: <PermitList />,
         },
         {
-          path: '/PersonelList',
+          path: "/PersonelList",
           element: <PersonelList />,
         },
       ],
     },
     {
-      path: '/Login',
+      path: "/Login",
       element: <Login />,
     },
   ]);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Home.scss";
 import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
 import ModalPermitRequest from "../../Components/Modal/ModalPermitRequest/ModalPermitRequest";
@@ -55,7 +55,7 @@ const Home = () => {
     queryFn: () =>
       makeRequest
         .get(
-          `/permits?pagination[page]=${currentPage}&pagination[pageSize]=7&populate=*`
+          `/permits/${currentUser.user.id}?pagination[page]=${currentPage}&pagination[pageSize]=7&populate=*`
         )
         .then((res) => {
           let pertmitType = [];
@@ -66,6 +66,27 @@ const Home = () => {
           return res.data;
         }),
   });
+
+  useEffect(() => {
+    if (getPermits.refetch) {
+      getPermits.refetch({
+        queryKey: ["permits"],
+        queryFn: () =>
+          makeRequest
+            .get(
+              `/permits/${currentUser.user.id}?pagination[page]=${currentPage}&pagination[pageSize]=7&populate=*`
+            )
+            .then((res) => {
+              let pertmitType = [];
+              for (let i = 0; i < res.data.data.length; i++) {
+                pertmitType.push(res.data.data[i]);
+              }
+              setPermit(pertmitType);
+              return res.data;
+            }),
+      });
+    }
+  }, [currentPage]);
 
   return (
     <>
@@ -128,23 +149,24 @@ const Home = () => {
                     <th>Durum</th>
                     <th>Açıklama</th>
                     <th style={{ borderRadius: "0px 5px 5px 0px" }}>
-                      Onaylayan
+                      İşlemi Yapan
                     </th>
                   </tr>
                 </thead>
-
                 <tbody>
                   {permit?.map((item, index) => (
                     <tr key={item.id}>
                       <td>{item.id}</td>
                       <td>
-                        {currentUser?.user?.FirstName +
+                        {item.attributes?.users_permissions_user?.data
+                          ?.attributes?.FirstName +
                           " " +
-                          currentUser?.user?.LastName}
+                          item.attributes?.users_permissions_user?.data
+                            ?.attributes?.LastName}
                       </td>
                       <td>{departmentsName}</td>
                       <td>
-                        {moment(data?.permits[index]?.CreatedDate).format(
+                        {moment(permit[index]?.attributes?.CreatedDate).format(
                           "DD/MM/YYYY"
                         )}
                       </td>
@@ -155,23 +177,22 @@ const Home = () => {
                         }
                       </td>
                       <td>
-                        {moment(data?.permits[index]?.StartDate).format(
+                        {moment(permit[index]?.attributes?.StartDate).format(
                           "DD/MM/YYYY"
                         )}
                       </td>
                       <td>
-                        {moment(data?.permits[index]?.EndDate).format(
+                        {moment(permit[index]?.attributes?.EndDate).format(
                           "DD/MM/YYYY"
                         )}
                       </td>
                       <td>
-                        {data?.permit_statuses[index]?.Status === 1
-                          ? "Onaylandı"
-                          : data?.permit_statuses[index]?.Status === 0
-                          ? "Onay Bekliyor"
-                          : "Reddedildi"}
+                        {
+                          permit[index]?.attributes?.permit_status?.data
+                            ?.attributes?.Description
+                        }
                       </td>
-                      <td>{data?.permits[index]?.Description}</td>
+                      <td>{permit[index]?.attributes?.Description}</td>
                       <td>Nazım</td>
                     </tr>
                   ))}
@@ -179,17 +200,16 @@ const Home = () => {
               </table>
               <div className="tfoot">
                 <Pagination
-                  totalCount={getPermits?.data?.meta?.pagination.total}
+                  totalCount={getPermits?.data?.meta?.pagination?.total || 0}
                   setCurrentPage={setCurrentPage}
-                  pageCount={getPermits?.data?.meta?.pagination.pageCount}
-                  pageSize={getPermits?.data?.meta?.pagination.pageSize}
+                  pageCount={getPermits?.data?.meta?.pagination?.pageCount || 0}
+                  pageSize={getPermits?.data?.meta?.pagination?.pageSize || 0}
                 />
               </div>
             </div>
           </>
         )}
       </div>
-
       <Modal show={show} size="lg" onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
           <Modal.Title>İzin Talep Formu</Modal.Title>

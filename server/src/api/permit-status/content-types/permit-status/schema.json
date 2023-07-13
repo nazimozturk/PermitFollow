@@ -21,9 +21,6 @@
     "Sequence": {
       "type": "integer"
     },
-    "Description": {
-      "type": "richtext"
-    },
     "users_permissions_user": {
       "type": "relation",
       "relation": "manyToOne",
@@ -38,6 +35,9 @@
       "relation": "oneToMany",
       "target": "api::permit.permit",
       "mappedBy": "permit_status"
+    },
+    "Description": {
+      "type": "string"
     }
   }
 }

@@ -1,16 +1,24 @@
-import React from 'react';
-import './Footer.scss';
+import Container from "react-bootstrap/Container";
+import Navbar2 from "react-bootstrap/Navbar";
 
-const Footer = () => {
+function Navbar() {
   return (
-    <>
-      <div className="footer">
-        <div className="wrapper">
-          Copyright © 2022 - {new Date().getFullYear()}
-        </div>
-      </div>
-    </>
+    <Navbar2
+      fixed="bottom"
+      collapseOnSelect
+      expand="lg"
+      bg="dark"
+      variant="dark"
+    >
+      <Container>
+        <Navbar2.Brand>
+          <div style={{ color: "white" }}>
+            Permit Follow - Copyright © 2022 - {new Date().getFullYear()}
+          </div>
+        </Navbar2.Brand>
+      </Container>
+    </Navbar2>
   );
-};
+}
 
-export default Footer;
+export default Navbar;
